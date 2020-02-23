@@ -7,7 +7,13 @@ class Author
 	private String name;
 	private String email;
 	private char gender;
-	Author(String name,String email, char gender)
+	Author(Author a)
+	{
+		this.name=a.name;
+		this.email=a.email;
+		this.gender=a.gender;
+	}
+	Author(String name,String email,char gender)
 	{
 		this.name=name;
 		this.email=email;
@@ -37,7 +43,7 @@ class Author
 	}
 	
 }
-class Book 
+class Book extends Author
 {
 	private String name;
 	private Author a;
@@ -45,6 +51,7 @@ class Book
 	private int qty;
 	Book(String name,Author a,double price)
 	{
+	    super(a);
 		this.name=name;
 		this.a=a;
 		this.price=price;
@@ -52,6 +59,7 @@ class Book
 	}
 	Book(String name,Author a,double price,int qty)
 	{
+	    super(a);
 		this.name=name;
 		this.a=a;
 		this.price=price;
@@ -368,3 +376,4 @@ System.out.println("Program Ended");
 	}
 
 }
+
