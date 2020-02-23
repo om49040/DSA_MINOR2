@@ -1,0 +1,370 @@
+package minor2;
+//Name -Om Mohanty
+//regd-1941012503
+import java.util.Scanner;
+class Author
+{
+	private String name;
+	private String email;
+	private char gender;
+	Author(String name,String email, char gender)
+	{
+		this.name=name;
+		this.email=email;
+		this.gender=gender;
+	}
+	public String get_name()
+	{
+		return name;
+	}
+	public String get_email()
+	{
+		return email;
+	}
+	public void set_email()
+	{
+		System.out.println("Enter the email");
+		Scanner s=new Scanner(System.in);
+		email=s.next();
+	}
+	public char get_gender()
+	{
+		return gender;
+	}
+	String ToString()
+	{
+		return("name="+name+" email="+email+" gender="+gender);
+	}
+	
+}
+class Book 
+{
+	private String name;
+	private Author a;
+	private double price;
+	private int qty;
+	Book(String name,Author a,double price)
+	{
+		this.name=name;
+		this.a=a;
+		this.price=price;
+		qty=0;
+	}
+	Book(String name,Author a,double price,int qty)
+	{
+		this.name=name;
+		this.a=a;
+		this.price=price;
+		this.qty=qty;
+	}
+	public String get_name()
+	{
+		return name;
+	}
+	public Author get_Author()
+	{
+		return a;
+	}
+	public double get_price()
+	{
+		return price;
+	}
+	public void set_price()
+	{
+		Scanner s=new Scanner(System.in);
+		System.out.println("Enter the price of the book");
+		price=s.nextDouble();
+	}
+	public int get_qty()
+	{
+		return qty;
+	}
+	public void set_qty(int a)
+	{
+		qty=a;
+	}
+	String ToString()
+	{
+		return ("Book_name="+name+" "+a.ToString()+" price="+price+" Quantity_of_the_book="+get_qty());
+	}
+}
+class student
+{
+	String name;
+	int roll;
+	date issueDate;
+	date returnDate;
+	Author aa;
+	Book[] bb=new Book[5];int c;
+	student(String name,int roll)
+	{
+		this.name=name;c=0;
+		this.roll=roll;aa=new Author("0","0",'0');
+		for(int i=0;i<5;++i)
+		{
+		bb[i]=new Book("0",aa,0);
+		}
+		
+	}
+	public String getname()
+	{
+		return name;
+	}
+	public int getRoll()
+	{
+		return roll;
+	}
+	public date getissueDate()
+	{
+		return issueDate;
+	}
+	public void setissueDate(date issueDate)
+	{
+		this.issueDate = issueDate;
+	}
+	public date getreturnDate()
+	{
+		return returnDate;
+	}
+	public void setreturnDate(date returnDate)
+	{
+		this.returnDate = returnDate;
+	}
+	public void issueBook(Book b[],int n)
+	{
+		int i;
+		Scanner s=new Scanner(System.in);
+		
+			System.out.println("**********WELCOME TO THE LIBRARY**********");
+			while(true)
+			{
+				
+			System.out.println("The books available in the library are shown below____");
+			for(i=0;i<n;++i)
+			{
+				System.out.println((i+1)+".>"+b[i].ToString());
+			}
+			System.out.println("Enter the number of the book that is to be issued___");
+			i=s.nextInt();i=i-1;
+			if(b[i].get_qty()==0)
+			{
+				System.out.println("The book is not available");
+				return ;
+			}
+			b[i].set_qty(b[i].get_qty()-1);
+			if(c==0)
+			{
+			System.out.println("Enter the issuedate of the book");
+			int dd=s.nextInt();
+			int mm=s.nextInt();
+			int yyyy=s.nextInt();
+			issueDate=new date(dd,mm,yyyy);
+			}
+			bb[c]=b[i];
+			bb[c].set_qty(1);
+			c++;
+			System.out.println("Enter 1  to re_issue else enter anyother number:");
+			int cc=s.nextInt();
+			if(cc!=1)
+			{
+				return ;
+			}
+				
+			}
+			
+				
+			}
+	public void depositBook(Book b[],int n)
+	{
+		Scanner s=new Scanner(System.in);
+		if(c==0)
+		{
+			System.out.println("NO books with you");
+			return ;
+		}
+		System.out.println("The books with the student:");
+		for(int i=0;i<c;++i)
+		{
+			System.out.println(bb[i].ToString());System.out.println(" "+bb[i].get_qty());
+		}
+		for(int i=0;i<c;++i)
+		{
+		    for(int j=0;j<n;++j)
+		    {
+		    	if(bb[i].get_name()==b[j].get_name())
+		    	{
+		    		b[j].set_qty(b[j].get_qty()+1);
+		    	}
+		    }
+		}
+		c=0;
+		
+		System.out.println("Enter the final Deposit date");
+		int dd=s.nextInt();
+		int mm=s.nextInt();
+		int yyyy=s.nextInt();
+		date d=new date(dd,mm,yyyy);
+		System.out.println("Enter the return date of the book");
+		 dd=s.nextInt();
+		 mm=s.nextInt();
+		 yyyy=s.nextInt();
+		returnDate=new date(dd,mm,yyyy);
+		System.out.println("The late fees due to the delay on returning is="+d.diffdate(d,returnDate));
+		
+		
+	}
+		
+	}
+	
+
+
+class date
+{
+	int dd,mm,yyyy;
+	int diff;
+	 int getdd()
+	{
+		return dd;
+	}
+	 void  display()
+	 {
+	 System.out.println(dd+"/"+mm+"/"+yyyy);
+	 }
+	
+	 int getmm()
+	{
+		return mm;
+	}
+	
+	 int getyyyy()
+	{
+		return yyyy;
+	}
+	
+	date(int dd,int mm,int yyyy)
+	{
+		this.dd=dd;
+		this.mm=mm;diff=0;
+		this.yyyy=yyyy;
+	}
+	int diffdate(date d1,date d2)
+	{
+		diff=0;
+		if(d1.dd==d2.dd && d1.mm==d2.mm && d1.yyyy==d2.yyyy) 
+		{
+			return diff;
+		}
+		if(d1.mm==d2.mm && d1.yyyy==d2.yyyy )
+		{
+			if(d2.dd>d1.dd)
+			{
+			
+			return d2.dd-d1.dd;
+			}
+		}
+		while((d1.dd!=d2.dd)||(d1.mm!=d2.mm)||(d1.yyyy!=d2.yyyy))
+		{
+			
+			d1.dd++;diff++;
+			if(d1.mm==2 && d1.dd==29)
+			{
+				d1.dd=1;d1.mm++;
+			}
+		int	m=d1.mm;
+			if(d1.dd==32&&(m==1||m==3||m==5||m==7||m==8||m==10||m==12))
+			{
+				d1.mm++;d1.dd=1;
+			}
+			if(d1.dd==31&&(m==4||m==6||m==9||m==11))
+			{
+				d1.mm++;d1.dd=1;
+			}
+			if(d1.mm==13)
+			{
+				d1.mm=1;
+				d1.yyyy++;
+			}}
+		return diff;
+	}
+}
+
+public class TESTER {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Scanner s1=new Scanner(System.in);
+		Scanner s2=new Scanner(System.in);
+		System.out.println("Enter the total number of books in the library____");
+		int n=s1.nextInt();
+		Book b[]=new Book[n];
+		Author a;
+		int i,qty,roll;
+		String bname,aname,name,email;
+		char gen;
+		double price;
+		int dd,mm,yyyy;
+		for(i=0;i<n;++i)
+		{
+			System.out.println("Enter the name of the book, quantity of the books, price of the book");
+			bname=s2.nextLine();
+			qty=s1.nextInt();
+			price=s1.nextDouble();
+			System.out.println("Enter the details of the author:name:email:gen");
+			aname=s2.nextLine();
+			email=s2.nextLine();
+			gen=s1.next().charAt(0);
+			a=new Author(aname,email,gen);
+			b[i]=new Book(bname,a,price,qty);
+		}
+		System.out.println("Library Created");
+		System.out.println("Enter the details of the student:");
+		System.out.println("Enter the number of students in the class");
+		int nn;
+		nn=s1.nextInt();
+		student[] s=new student[nn];
+		System.out.println("Enter the details of the student");
+		for(i=0;i<nn;++i)
+		{
+			System.out.println("Enter the name of the student,roll");
+			name=s2.nextLine();
+			roll=s1.nextInt();
+			s[i]=new student(name,roll);
+			
+		}
+		//the code from below this is for the students entering  the library
+		System.out.println("****************************************************************************");
+		System.out.println("****************************************************************************");
+		System.out.println("****************************************************************************");
+		System.out.println("****************************************************************************");
+		while(true)
+		{
+			System.out.println("Student enter your serial number");
+			int num=s1.nextInt();num=num-1;
+			if(num>=nn) 
+			{
+				System.out.println("No such number exists pls enter the correct student");
+			}
+			else
+			{
+				System.out.println("1.> To issue the book\n2.> To deposit the book");
+				int choice=s1.nextInt();
+				if (choice==1)
+				{
+					s[num].issueBook(b, n);
+				}
+				if (choice==2)
+				{
+					s[num].depositBook(b,n);
+				}
+			}
+			System.out.println("Enter 0 if you want to exit any other to continue:");
+			int choice=s1.nextInt();
+			if(choice==0)
+			{
+				break;
+			}
+		}
+System.out.println("Program Ended");
+	}
+
+}
